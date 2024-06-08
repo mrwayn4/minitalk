@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 10:48:42 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/08 19:03:49 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/06/08 19:53:11 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,11 @@ void	ft_unicode(unsigned char byte, int *i, int *len, char **ch)
 	if (byte > 192)
 		*len = 1 + (byte >= 192) + (byte >= 224) + (byte >= 240);
 	if (*i == 0)
+	{
 		*ch = malloc(*len + 1);
+		if (!*ch)
+			return (NULL);
+	}
 	if (*i < *len)
 		(*ch)[(*i)++] = byte;
 	if (*i == *len)
@@ -30,36 +34,40 @@ void	ft_unicode(unsigned char byte, int *i, int *len, char **ch)
 	}
 }
 
+void	initialization(t_data *data)
+{
+	data->byte = 0;
+	data->bit = 0;
+	data->i = 0;
+	data->len = 1;
+}
+
 void	handler(int sig, siginfo_t *info, void *content)
 {
-	static char	bit = 0;
-	static unsigned char	byte = 0;
-	static int	pid;
-	static int	i = 0;
-	static int	len = 1;
-	static char	*ch;
+	static t_data			data;
 
+	initialization(&data);
 	(void)content;
-	if (pid != info->si_pid)
+	if (data.pid != info->si_pid)
 	{
-		pid = info->si_pid;
-		bit = 0;
-		byte = 0;
-		i = 0;
-		len = 1;
+		data.pid = info->si_pid;
+		data.bit = 0;
+		data.byte = 0;
+		data.i = 0;
+		data.len = 1;
 	}
-	byte = (byte << 1) + (sig == SIGUSR2);
-	bit++;
-	if (bit == 8)
+	data.byte = (data.byte << 1) + (sig == SIGUSR2);
+	data.bit++;
+	if (data.bit == 8)
 	{
-		if (byte == 0)
+		if (data.byte == 0)
 		{
 			kill(info->si_pid, SIGUSR2);
 			write(1, "\n", 1);
 		}
-		ft_unicode(byte, &i, &len, &ch);
-		bit = 0;
-		byte = 0;
+		ft_unicode(data.byte, &data.i, &data.len, &data.ch);
+		data.bit = 0;
+		data.byte = 0;
 	}
 }
 

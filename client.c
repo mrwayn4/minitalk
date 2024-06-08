@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 01:00:21 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/08 18:38:14 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/06/08 19:54:21 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	main(int ac, char **av)
 	}
 	pid = ft_atoi(av[1]);
 	if (pid <= 0)
-		signal_error(); 
+		signal_error();
 	while (av[2][i] != '\0')
 	{
 		ft_send_sig(pid, av[2][i]);
