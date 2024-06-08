@@ -6,7 +6,7 @@
 #    By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/04 09:39:13 by ibouram           #+#    #+#              #
-#    Updated: 2024/04/03 01:13:27 by ibouram          ###   ########.fr        #
+#    Updated: 2024/06/08 18:44:39 by ibouram          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRCC = client.c
 SRCS = server.c
 
 SRCCB = client_bonus.c utils_bonus.c
-SRCSB = server_bonus.c
+SRCSB = server_bonus.c utils_bonus.c
 
 OBJC = $(SRCC:.c=.o)
 OBJS = $(SRCS:.c=.o)

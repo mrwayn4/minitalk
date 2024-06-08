@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 10:46:18 by ibouram           #+#    #+#             */
-/*   Updated: 2024/04/03 01:06:59 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/06/08 18:39:40 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,12 @@ int	ft_atoi(const char *str)
 	if (*str == '+' || *str == '-')
 	{
 		if (*str == '-')
-			signal_error();
+			sign = -1;
 		str++;
 	}
 	while (*str >= '0' && *str <= '9')
 	{
 		total = total * 10 + (*str - '0');
-		if (*str == '0')
-			signal_error();
 		str++;
 	}
 	return (total * sign);
@@ -94,6 +92,8 @@ int	main(int ac, char **av)
 		return (1);
 	}
 	pid = ft_atoi(av[1]);
+	if (pid <= 0)
+		signal_error();
 	while (av[2][i] != '\0')
 	{
 		ft_send_sig(pid, av[2][i]);
