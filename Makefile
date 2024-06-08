@@ -6,12 +6,12 @@
 #    By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/04 09:39:13 by ibouram           #+#    #+#              #
-#    Updated: 2024/06/08 18:44:39 by ibouram          ###   ########.fr        #
+#    Updated: 2024/06/08 19:56:18 by ibouram          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SERVER = server
-CLIENT = client
+NAME = client
 SERVERB = server_bonus
 CLIENTB = client_bonus
 
@@ -31,11 +31,11 @@ OBJS = $(SRCS:.c=.o)
 OBJCB = $(SRCCB:.c=.o)
 OBJSB = $(SRCSB:.c=.o)
 
-all: $(SERVER) $(CLIENT)
+all: $(SERVER) $(NAME)
 
 $(SERVER): $(OBJS)
 		$(CC) $(FLAGS) $^ -o $@
-$(CLIENT): $(OBJC)
+$(NAME): $(OBJC)
 		$(CC) $(FLAGS) $^ -o $@
 
 bonus: $(SERVERB) $(CLIENTB)
@@ -56,7 +56,7 @@ clean:
 
 fclean: clean
 	$(RM) $(SERVER)
-	$(RM) $(CLIENT)
+	$(RM) $(NAME)
 	$(RM) $(SERVERB)
 	$(RM) $(CLIENTB)
 

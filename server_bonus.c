@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 10:48:42 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/08 19:53:11 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/06/08 19:57:44 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_unicode(unsigned char byte, int *i, int *len, char **ch)
 	{
 		*ch = malloc(*len + 1);
 		if (!*ch)
-			return (NULL);
+			return ;
 	}
 	if (*i < *len)
 		(*ch)[(*i)++] = byte;
