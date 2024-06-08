@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 10:48:42 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/08 19:57:44 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/06/08 21:01:34 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,40 +34,31 @@ void	ft_unicode(unsigned char byte, int *i, int *len, char **ch)
 	}
 }
 
-void	initialization(t_data *data)
-{
-	data->byte = 0;
-	data->bit = 0;
-	data->i = 0;
-	data->len = 1;
-}
-
 void	handler(int sig, siginfo_t *info, void *content)
 {
+	static char				bit = 0;
+	static unsigned char	byte = 0;
+	static int				i = 0;
+	static int				len = 1;
 	static t_data			data;
 
-	initialization(&data);
 	(void)content;
 	if (data.pid != info->si_pid)
 	{
 		data.pid = info->si_pid;
-		data.bit = 0;
-		data.byte = 0;
-		data.i = 0;
-		data.len = 1;
+		(1) && (byte = 0, bit = 0, i = 0, len = 1);
 	}
-	data.byte = (data.byte << 1) + (sig == SIGUSR2);
-	data.bit++;
-	if (data.bit == 8)
+	byte = (byte << 1) + (sig == SIGUSR2);
+	bit++;
+	if (bit == 8)
 	{
-		if (data.byte == 0)
+		if (byte == 0)
 		{
 			kill(info->si_pid, SIGUSR2);
 			write(1, "\n", 1);
 		}
-		ft_unicode(data.byte, &data.i, &data.len, &data.ch);
-		data.bit = 0;
-		data.byte = 0;
+		ft_unicode(byte, &i, &len, &data.ch);
+		(1) && (byte = 0, bit = 0);
 	}
 }
 
